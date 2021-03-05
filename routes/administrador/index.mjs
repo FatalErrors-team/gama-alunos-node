@@ -9,6 +9,9 @@ export default [
     method: 'GET',
     path: ADMINISTRATOR_PATH,
     handler: administratorController.getAdministrator,
+    options: {
+      tags: ['api', 'administrador'],
+    },
   },
   {
     method: 'POST',
@@ -16,6 +19,7 @@ export default [
     handler: administratorController.saveOneAdministrator,
     options: {
       validate: administratorValidator.saveAdministratorValidate,
+      tags: ['api', 'administrador'],
     },
   },
 ];

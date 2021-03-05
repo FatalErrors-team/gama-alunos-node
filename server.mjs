@@ -1,4 +1,5 @@
 import Hapi from '@hapi/hapi';
+import swagger from './swagger/index.mjs';
 import routes from './routes/index.mjs';
 
 (async () => {
@@ -7,13 +8,16 @@ import routes from './routes/index.mjs';
     host: 'localhost',
   });
 
+  // Plugins
+  await swagger(server);
+
   routes.forEach((route) => server.route(route));
 
   server.route({
     method: '*',
     path: '/{any*}',
     handler: (request, h) => {
-      return h.response('Not found').code(404);
+      return h.redirect('/documentation');
     },
   });
 

@@ -9,11 +9,17 @@ export default [
     method: 'GET',
     path: STUDENT_PATH,
     handler: studentsController.getStudents,
+    options: {
+      tags: ['api', 'alunos'],
+    },
   },
   {
     method: 'GET',
     path: `${STUDENT_PATH}/{id}`,
     handler: studentsController.getSingleStudent,
+    options: {
+      tags: ['api', 'alunos'],
+    },
   },
   {
     method: 'POST',
@@ -21,6 +27,7 @@ export default [
     handler: studentsController.saveOneStudent,
     options: {
       validate: studentsValidator.saveStudentValidate,
+      tags: ['api', 'alunos'],
     },
   },
   {
@@ -29,11 +36,15 @@ export default [
     handler: studentsController.updateOneStudent,
     options: {
       validate: studentsValidator.updateStudentValidate,
+      tags: ['api', 'alunos'],
     },
   },
   {
     method: 'DELETE',
     path: `${STUDENT_PATH}/{id}`,
     handler: studentsController.deleteOneStudent,
+    options: {
+      tags: ['api', 'alunos'],
+    },
   },
 ];
