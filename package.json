@@ -10,7 +10,9 @@
     "start": "nodemon server.mjs"
   },
   "dependencies": {
-    "@hapi/hapi": "^20.1.0"
+    "@hapi/boom": "^9.1.1",
+    "@hapi/hapi": "^20.1.0",
+    "joi": "^17.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
