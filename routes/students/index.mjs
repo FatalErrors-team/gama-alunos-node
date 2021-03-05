@@ -1,4 +1,3 @@
-import Joi from 'joi';
 import studentsController from '../../controllers/studentsController/index.mjs';
 import studentsValidator from '../../helpers/validators/studentsValidator/index.mjs';
 
