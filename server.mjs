@@ -2,6 +2,7 @@ import Hapi from '@hapi/hapi';
 import swagger from './plugins/swagger/index.mjs';
 import authorizationMiddleware from './plugins/authorizationMiddleware/index.mjs';
 import routes from './routes/index.mjs';
+import dotenv from 'dotenv';
 
 (async () => {
   const server = Hapi.server({
@@ -9,9 +10,12 @@ import routes from './routes/index.mjs';
     host: 'localhost',
   });
 
+  // .env
+  dotenv.config();
+
   // Plugins
   await swagger(server);
-  //await authorizationMiddleware(server);
+  await authorizationMiddleware(server);
 
   routes.forEach((route) => server.route(route));
 

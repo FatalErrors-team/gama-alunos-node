@@ -4,7 +4,7 @@ export default async (server) => {
   await server.register(hapiJwt);
 
   server.auth.strategy('autorizacao_jwt', 'jwt', {
-    keys: 'chavesecreta',
+    keys: process.env.API_KEY,
     verify: {
       aud: false,
       iss: false,

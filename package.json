@@ -15,8 +15,11 @@
     "@hapi/inert": "^6.0.3",
     "@hapi/jwt": "^2.0.1",
     "@hapi/vision": "^6.0.1",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^8.2.0",
     "hapi-swagger": "14.1.0",
-    "joi": "17.x"
+    "joi": "17.x",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
