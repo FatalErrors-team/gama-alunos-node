@@ -1,16 +1,29 @@
 export default {
   info: {
-    title: 'Test API Documentation',
+    title: 'Gama Alunos',
     version: '1.0',
+    description: 'API de gerenciamento de alunos com autenticação JWT',
+    license: {
+      name: 'Licença MIT',
+      url:
+        'https://github.com/FatalErrors-team/gama-alunos-node/blob/main/LICENSE',
+    },
+  },
+  securityDefinitions: {
+    jwt: {
+      type: 'apiKey',
+      name: 'Authorization',
+      in: 'header',
+    },
   },
   tags: [
     {
-      name: 'alunos',
-      description: 'Alunos bla bla',
+      name: 'Alunos',
+      description: 'Endpoints da API de aluno',
     },
     {
-      name: 'administrador',
-      description: 'Administrador bla bla',
+      name: 'Administrador',
+      description: 'Endpoints do administrador',
     },
   ],
   grouping: 'tags',

@@ -3,7 +3,7 @@ import hapiJwt from '@hapi/jwt';
 export default async (server) => {
   await server.register(hapiJwt);
 
-  server.auth.strategy('autorizacao_jwt', 'jwt', {
+  server.auth.strategy('jwt', 'jwt', {
     keys: process.env.API_KEY,
     verify: {
       aud: false,
@@ -21,5 +21,5 @@ export default async (server) => {
     },
   });
 
-  server.auth.default('autorizacao_jwt');
+  // server.auth.default('jwt');
 };
