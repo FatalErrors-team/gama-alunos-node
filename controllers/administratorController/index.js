@@ -1,6 +1,6 @@
 import { Boom } from '@hapi/boom';
-import { generatePasswordHash } from '../../helpers/bcrypt/index.mjs';
-import { loginHeader, loginBody } from '../../helpers/loginMethods/index.mjs';
+import { generatePasswordHash } from '../../helpers/bcrypt/index.js';
+import { loginHeader, loginBody } from '../../helpers/loginMethods/index.js';
 
 export default {
   getAdministrator: async (req, h) => {

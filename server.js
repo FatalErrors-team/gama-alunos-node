@@ -1,7 +1,8 @@
 import Hapi from '@hapi/hapi';
-import swagger from './plugins/swagger/index.mjs';
-import authorizationMiddleware from './plugins/authorizationMiddleware/index.mjs';
-import routes from './routes/index.mjs';
+import swagger from './plugins/swagger/index.js';
+import authorizationMiddleware from './plugins/authorizationMiddleware/index.js';
+import logger from './plugins/logger/index.js';
+import routes from './routes/index.js';
 import dotenv from 'dotenv';
 
 (async () => {
@@ -16,6 +17,7 @@ import dotenv from 'dotenv';
   // Plugins
   await swagger(server);
   await authorizationMiddleware(server);
+  await logger(server);
 
   routes.forEach((route) => server.route(route));
 
@@ -28,5 +30,4 @@ import dotenv from 'dotenv';
   });
 
   await server.start();
-  console.log('[SERVER] Servidor iniciado com sucesso.');
 })();

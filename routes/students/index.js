@@ -1,8 +1,8 @@
-import studentsController from '../../controllers/studentsController/index.mjs';
+import studentsController from '../../controllers/studentsController/index.js';
 import studentsValidator, {
   validStudent,
   validId,
-} from '../../helpers/validators/studentsValidator/index.mjs';
+} from '../../helpers/validators/studentsValidator/index.js';
 
 const API_PREFIX = '/api/v1';
 const STUDENT_PATH = `${API_PREFIX}/alunos`;

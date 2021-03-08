@@ -1,8 +1,8 @@
-import administratorController from '../../controllers/administratorController/index.mjs';
+import administratorController from '../../controllers/administratorController/index.js';
 import administratorValidator, {
   validAdministrator,
   validJwt,
-} from '../../helpers/validators/administratorValidator/index.mjs';
+} from '../../helpers/validators/administratorValidator/index.js';
 
 export default [
   {
