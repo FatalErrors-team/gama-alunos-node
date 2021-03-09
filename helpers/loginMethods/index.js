@@ -5,9 +5,9 @@ const TOKEN_PREFIX = 'Bearer';
 
 export const verifyUser = async ({ username, password }, model) => {
   return new Promise(async (resolve, reject) => {
-    const user = await model.find({ username });
+    const user = await model.findOne({ usuario: username });
     if (!user) reject('password or user invalid');
-    if (!(await comparePasswordHash(password, user.password)))
+    if (await comparePasswordHash(password, user.senha))
       reject('password or user invalid');
     resolve();
   });

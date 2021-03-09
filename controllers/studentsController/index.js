@@ -1,95 +1,63 @@
-import RestRespository from '../../repositories/restRepository/RestRepository.js';
-import Response from '../../Models/Response.js';
+import Response from '../../models/Response.js';
+import StudentService from '../../services/StudentService.js';
 
 export default {
   getStudents: async (req, h) => {
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
-      try {
-        const repository = new RestRespository(process.env.API_URL, '/alunos');
-        const students = await repository.list();
-        return h.response(students.data);
-      } catch (error) {
-        return h.response({ message: error.message });
-      }
-    } else {
-      const students = await req.server.plugins['hapi-mongoose'].Aluno.find();
-      const response = new Response(200, students);
-      return h.response(response);
-    }
+    const studentService = new StudentService(
+      req.server.plugins['hapi-mongoose'],
+      '/alunos'
+    );
+    const { data: students, statusCode } = await studentService.find();
+    const response = new Response(students, statusCode);
+    return h.response(response).code(response.statusCode);
   },
-  getSingleStudent: async (req, h) => {
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
-      try {
-        const repository = new RestRespository(
-          process.env.API_URL,
-          '/alunos/' + req.params.id
-        );
-        const students = await repository.list();
-        return h.response(students.data);
-      } catch (error) {
-        return h.response({ message: error.message });
-      }
-    } else {
-      const student = await req.server.plugins['hapi-mongoose'].Aluno.findOne({
-        _id: req.params.id,
-      });
-      const response = new Response(200, student);
-      return h.response(response);
-    }
-  },
-  saveOneStudent: async (req, h) => {
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
-      try {
-        const repository = new RestRespository(process.env.API_URL, '/alunos');
-        const savedStudent = await repository.insert(req.payload);
-        return h.response(savedStudent.data).code(savedStudent.status);
-      } catch (error) {
-        return h.response({ message: error.message });
-      }
-    } else {
-      const student = new req.server.plugins['hapi-mongoose'].Aluno(
-        req.payload
-      );
-      const savedStudent = await student.save();
 
-      return h.response(savedStudent);
-    }
+  getSingleStudent: async (req, h) => {
+    const studentService = new StudentService(
+      req.server.plugins['hapi-mongoose'],
+      '/alunos'
+    );
+    const { data: student, statusCode } = await studentService.findOne(
+      req.params.id
+    );
+    const response = new Response(student, statusCode);
+    return h.response(response).code(response.statusCode);
   },
+
+  saveOneStudent: async (req, h) => {
+    const studentService = new StudentService(
+      req.server.plugins['hapi-mongoose'],
+      '/alunos'
+    );
+    const { data: student, statusCode } = await studentService.save(
+      req.payload
+    );
+    const response = new Response(student, statusCode);
+    return h.response(response).code(response.statusCode);
+  },
+
   updateOneStudent: async (req, h) => {
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
-      try {
-        const repository = new RestRespository(process.env.API_URL, '/alunos');
-        const savedStudent = await repository.update(
-          req.params.id,
-          req.payload
-        );
-        return h.response(savedStudent.data).code(savedStudent.status);
-      } catch (error) {
-        return h.response({ message: error.message });
-      }
-    } else {
-      const student = req.payload;
-      const updatedStudent = await req.server.plugins[
-        'hapi-mongoose'
-      ].Aluno.updateOne({ _id: req.params.id }, { $set: student });
-      return h.response(updatedStudent);
-    }
+    const studentService = new StudentService(
+      req.server.plugins['hapi-mongoose'],
+      '/alunos'
+    );
+    const { data: student, statusCode } = await studentService.updateOne(
+      req.params.id,
+      req.payload
+    );
+    const response = new Response(student, statusCode);
+    return h.response(response).code(response.statusCode);
   },
 
   deleteOneStudent: async (req, h) => {
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
-      try {
-        const repository = new RestRespository(process.env.API_URL, '/alunos');
-        const deletedStudent = await repository.delete(req.params.id);
-        return h.response(deletedStudent.data).code(deletedStudent.status);
-      } catch (error) {
-        return h.response({ message: error.message });
-      }
-    } else {
-      const deletedStudent = await req.server.plugins[
-        'hapi-mongoose'
-      ].Aluno.deleteOne({ _id: req.params.id });
-      return h.response(deletedStudent);
-    }
+    const studentService = new StudentService(
+      req.server.plugins['hapi-mongoose'],
+      '/alunos'
+    );
+    const { data: student, statusCode } = await studentService.deleteOne(
+      req.params.id
+    );
+    const response = new Response(student, statusCode);
+    return h.response(response).code(response.statusCode);
   },
 };

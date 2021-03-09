@@ -18,5 +18,5 @@ export const generatePasswordHash = async (password) => {
  * @returns {boolean} retorna o resultado da comparação
  */
 export const comparePasswordHash = async (textPassword, hashPassword) => {
-  return await bcrypt.compare(textPassword, hashPassword);
+  return !(await bcrypt.compare(textPassword, hashPassword));
 };

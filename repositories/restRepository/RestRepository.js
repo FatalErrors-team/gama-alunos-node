@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { calculateAverage } from '../../services/StudentService.js';
 
 class RestRespository {
   constructor(url, resourcePath) {
@@ -10,34 +11,35 @@ class RestRespository {
     };
   }
 
-  async list() {
+  async find() {
     const url = `${this.url}${this.resourcePath}`;
     const res = await axios.get(url, { headers: this.headers });
     return res;
   }
 
-  async getOne(id) {
+  async findOne(id) {
     const url = `${this.url}${this.resourcePath}/${id}`;
     const res = await axios.get(url, { headers: this.headers });
     return res;
   }
 
-  async insert(obj) {
+  async save(obj) {
     const url = `${this.url}${this.resourcePath}`;
     const res = await axios.post(url, obj, { headers: this.headers });
     return res;
   }
 
-  async update(id, obj) {
-    const res = await this.getOne(id);
+  async updateOne(id, obj) {
+    const res = await this.findOne(id);
     let objRes = res.data.data;
     objRes = { ...objRes, ...obj };
+    calculateAverage(objRes);
     const url = `${this.url}${this.resourcePath}/${id}`;
     const res2 = await axios.put(url, objRes, { headers: this.headers });
     return res2;
   }
 
-  async delete(id) {
+  async deleteOne(id) {
     const url = `${this.url}${this.resourcePath}/${id}`;
     const res = await axios.delete(url, { headers: this.headers });
     return res;
@@ -45,17 +47,3 @@ class RestRespository {
 }
 
 export default RestRespository;
-
-/*
-
-async function obterAlunos(setEstudantes) {
-    const response = await axios({
-        method: "GET",
-        url: "https://boiling-river-79785.herokuapp.com/alunos",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-        },
-    });
-
-    */
