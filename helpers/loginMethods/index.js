@@ -1,13 +1,24 @@
 import jwt from 'jsonwebtoken';
+import { comparePasswordHash } from '../bcrypt/index.js';
 
 const TOKEN_PREFIX = 'Bearer';
+
+export const verifyUser = async ({ username, password }, model) => {
+  return new Promise(async (resolve, reject) => {
+    const user = await model.find({ username });
+    if (!user) reject('password or user invalid');
+    if (!(await comparePasswordHash(password, user.password)))
+      reject('password or user invalid');
+    resolve();
+  });
+};
 
 /**
  * Realiza login por meio do token enviado pelo header
  * @param {string} authorization Basic token com os dados de usuário e senha
  * @returns Retorna um token jwt ou uma mensagem de erro.
  */
-export const loginHeader = async (authorization) => {
+export const loginHeader = async (authorization, model) => {
   return new Promise((resolve, reject) => {
     const [scheme, hash] = authorization.split(' ');
     if (scheme !== 'Basic') {
@@ -20,10 +31,17 @@ export const loginHeader = async (authorization) => {
       reject('Invalid authorization token.');
     }
 
-    // Login verification stay here ---
-
-    const token = jwt.sign({ sub: username.toString() }, process.env.API_KEY);
-    resolve(`${TOKEN_PREFIX} ${token}`);
+    verifyUser({ username, password }, model)
+      .then(() => {
+        const token = jwt.sign(
+          { sub: username.toString() },
+          process.env.API_KEY
+        );
+        resolve(`${TOKEN_PREFIX} ${token}`);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 };
 
@@ -32,14 +50,18 @@ export const loginHeader = async (authorization) => {
  * @param {Object} user body com os dados de usuário e senha
  * @returns Retorna um token jwt ou uma mensagem de erro.
  */
-export const loginBody = async (user) => {
+export const loginBody = async (user, model) => {
   return new Promise((resolve, reject) => {
-    // Login verification stay here ---
-    const token = jwt.sign(
-      { sub: user.usuario.toString() },
-      process.env.API_KEY
-    );
-
-    resolve(`${TOKEN_PREFIX} ${token}`);
+    verifyUser({ username, password }, model)
+      .then(() => {
+        const token = jwt.sign(
+          { sub: username.toString() },
+          process.env.API_KEY
+        );
+        resolve(`${TOKEN_PREFIX} ${token}`);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 };

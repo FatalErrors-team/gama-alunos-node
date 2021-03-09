@@ -54,7 +54,7 @@ export const validStudent = Joi.object({
 }).label('Aluno');
 
 export const validId = Joi.object({
-  id: Joi.string().alphanum().example('1').description('Id do aluno'),
+  id: Joi.string().example('1').description('Id do aluno'),
 });
 
 export default {
@@ -126,6 +126,7 @@ export default {
   },
   updateStudentValidate: {
     payload: Joi.object({
+      id: Joi.string().example(1).description('ID do aluno'),
       nome: Joi.string().min(3).example('Fulano').description('Nome do aluno'),
       email: Joi.string()
         .regex(/\S+@\S+\.\S+/)
