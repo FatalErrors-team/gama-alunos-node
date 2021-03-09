@@ -39,9 +39,9 @@ export default {
       try {
         const token = await loginHeader(
           authorization,
-          req.server.plugins['hapi-mongoose'].Administrador
+          req.server.plugins['hapi-mongoose'].Administrator
         );
-        const response = new Response(201, token);
+        const response = new Response(token, 201);
         return h.response(response).code(response.statusCode);
       } catch (error) {
         return new Boom(error, { statusCode: 401 });
@@ -50,9 +50,9 @@ export default {
       try {
         const token = await loginBody(
           user,
-          req.server.plugins['hapi-mongoose'].Administrador
+          req.server.plugins['hapi-mongoose'].Administrator
         );
-        const response = new Response(201, token);
+        const response = new Response(token, 201);
         return h.response(response).code(response.statusCode);
       } catch (error) {
         return new Boom(error, { statusCode: 401 });

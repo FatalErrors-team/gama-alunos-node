@@ -54,6 +54,7 @@ export default (db, mongoose) => {
     },
     curso: {
       nome: String,
+      disciplina: String,
     },
   });
 

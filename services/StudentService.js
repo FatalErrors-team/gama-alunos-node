@@ -1,13 +1,14 @@
 import RestRespository from '../repositories/restRepository/RestRepository.js';
 
 class StudentService {
-  constructor(models, url) {
+  constructor(models, url, persistenceType = process.env.PERSISTENCE_TYPE) {
     this.models = models;
     this.url = url;
+    this.persistenceType = persistenceType;
   }
 
   async find() {
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
+    if (this.persistenceType === 'REST') {
       const repository = new RestRespository(process.env.API_URL, this.url);
       const students = await repository.find();
       return { data: students.data.data, statusCode: 200 };
@@ -19,7 +20,7 @@ class StudentService {
   }
 
   async findOne(id) {
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
+    if (this.persistenceType === 'REST') {
       const repository = new RestRespository(process.env.API_URL, this.url);
       const student = await repository.findOne(id);
       if (!student.data.data) {
@@ -42,7 +43,7 @@ class StudentService {
 
   async save(obj) {
     calculateAverage(obj);
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
+    if (this.persistenceType === 'REST') {
       try {
         const repository = new RestRespository(process.env.API_URL, this.url);
         const savedStudent = await repository.save(obj);
@@ -63,7 +64,7 @@ class StudentService {
   }
 
   async updateOne(id, obj) {
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
+    if (this.persistenceType === 'REST') {
       try {
         const repository = new RestRespository(process.env.API_URL, this.url);
         const updatedStudent = await repository.updateOne(id, obj);
@@ -92,7 +93,7 @@ class StudentService {
   }
 
   async deleteOne(id) {
-    if (process.env.PERSISTENCE_TYPE === 'REST') {
+    if (this.persistenceType === 'REST') {
       try {
         const repository = new RestRespository(process.env.API_URL, this.url);
         const deletedStudent = await repository.deleteOne(id);

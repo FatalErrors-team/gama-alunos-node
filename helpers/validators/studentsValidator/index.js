@@ -39,6 +39,9 @@ export const validStudent = Joi.object({
     nome: Joi.string()
       .example('Engenharia da Computação')
       .description('Nome do curso'),
+    disciplina: Joi.string()
+      .example('Cálculo I')
+      .description('Disciplina do curso'),
   })
     .description('Curso do aluno')
     .label('Curso'),
@@ -103,6 +106,10 @@ export default {
           .required()
           .example('Engenharia da Computação')
           .description('Nome do curso'),
+        disciplina: Joi.string()
+          .required()
+          .example('Cálculo I')
+          .description('Disciplina do curso'),
       })
         .required()
         .description('Curso do aluno')
@@ -159,6 +166,9 @@ export default {
         nome: Joi.string()
           .example('Engenharia da Computação')
           .description('Nome do curso'),
+        disciplina: Joi.string()
+          .example('Cálculo I')
+          .description('Disciplina do curso'),
       })
         .description('Curso do aluno')
         .label('Curso'),

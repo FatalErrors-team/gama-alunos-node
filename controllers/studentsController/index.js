@@ -5,7 +5,10 @@ export default {
   getStudents: async (req, h) => {
     const studentService = new StudentService(
       req.server.plugins['hapi-mongoose'],
-      '/alunos'
+      '/alunos',
+      req.headers['x-persistence-type']
+        ? req.headers['x-persistence-type']
+        : process.env.PERSISTENCE_TYPE
     );
     const { data: students, statusCode } = await studentService.find();
     const response = new Response(students, statusCode);
@@ -15,7 +18,10 @@ export default {
   getSingleStudent: async (req, h) => {
     const studentService = new StudentService(
       req.server.plugins['hapi-mongoose'],
-      '/alunos'
+      '/alunos',
+      req.headers['x-persistence-type']
+        ? req.headers['x-persistence-type']
+        : process.env.PERSISTENCE_TYPE
     );
     const { data: student, statusCode } = await studentService.findOne(
       req.params.id
@@ -27,7 +33,10 @@ export default {
   saveOneStudent: async (req, h) => {
     const studentService = new StudentService(
       req.server.plugins['hapi-mongoose'],
-      '/alunos'
+      '/alunos',
+      req.headers['x-persistence-type']
+        ? req.headers['x-persistence-type']
+        : process.env.PERSISTENCE_TYPE
     );
     const { data: student, statusCode } = await studentService.save(
       req.payload
@@ -39,7 +48,10 @@ export default {
   updateOneStudent: async (req, h) => {
     const studentService = new StudentService(
       req.server.plugins['hapi-mongoose'],
-      '/alunos'
+      '/alunos',
+      req.headers['x-persistence-type']
+        ? req.headers['x-persistence-type']
+        : process.env.PERSISTENCE_TYPE
     );
     const { data: student, statusCode } = await studentService.updateOne(
       req.params.id,
@@ -52,7 +64,10 @@ export default {
   deleteOneStudent: async (req, h) => {
     const studentService = new StudentService(
       req.server.plugins['hapi-mongoose'],
-      '/alunos'
+      '/alunos',
+      req.headers['x-persistence-type']
+        ? req.headers['x-persistence-type']
+        : process.env.PERSISTENCE_TYPE
     );
     const { data: student, statusCode } = await studentService.deleteOne(
       req.params.id
