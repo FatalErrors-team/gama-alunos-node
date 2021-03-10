@@ -47,7 +47,7 @@ class StudentService {
       try {
         const repository = new RestRespository(process.env.API_URL, this.url);
         const savedStudent = await repository.save(obj);
-        return { data: savedStudent.data.data, statusCode: 200 };
+        return { data: savedStudent.data.data, statusCode: 201 };
       } catch {
         return { data: null, statusCode: 500 };
       }
@@ -56,7 +56,7 @@ class StudentService {
         const repository = this.models.Student;
         const student = new repository(obj);
         const savedStudent = await student.save();
-        return { data: savedStudent, statusCode: 200 };
+        return { data: savedStudent, statusCode: 201 };
       } catch {
         return { data: null, statusCode: 500 };
       }
@@ -97,7 +97,7 @@ class StudentService {
       try {
         const repository = new RestRespository(process.env.API_URL, this.url);
         const deletedStudent = await repository.deleteOne(id);
-        return { data: deletedStudent.data.data, statusCode: 204 };
+        return { data: deletedStudent.data, statusCode: 204 };
       } catch {
         return { data: null, statusCode: 500 };
       }
