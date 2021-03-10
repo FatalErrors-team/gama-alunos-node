@@ -3,6 +3,12 @@ import { comparePasswordHash } from '../bcrypt/index.js';
 
 const TOKEN_PREFIX = 'Bearer';
 
+/**
+ * Verifica se o usuário passado existe no banco
+ * @param {Object} user username e password
+ * @param {Object} model Model de alunos do hapi-mongoose
+ * @returns
+ */
 export const verifyUser = async ({ username, password }, model) => {
   return new Promise(async (resolve, reject) => {
     const user = await model.findOne({ usuario: username });
@@ -16,7 +22,9 @@ export const verifyUser = async ({ username, password }, model) => {
 /**
  * Realiza login por meio do token enviado pelo header
  * @param {string} authorization Basic token com os dados de usuário e senha
+ * @param {Object} model Model de alunos do hapi-mongoose
  * @returns Retorna um token jwt ou uma mensagem de erro.
+ * @async
  */
 export const loginHeader = async (authorization, model) => {
   return new Promise((resolve, reject) => {
@@ -48,7 +56,9 @@ export const loginHeader = async (authorization, model) => {
 /**
  * Realiza login por meio dos dados enviados no body
  * @param {Object} user body com os dados de usuário e senha
+ * @param {Object} model Model de alunos do hapi-mongoose
  * @returns Retorna um token jwt ou uma mensagem de erro.
+ * @async
  */
 export const loginBody = async (user, model) => {
   return new Promise((resolve, reject) => {
