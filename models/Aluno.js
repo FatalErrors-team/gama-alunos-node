@@ -48,7 +48,7 @@ export default (db, mongoose) => {
       enum: ['APROVADO', 'REPROVADO'],
     },
     endereco: {
-      CEP: String,
+      cep: String,
       logradouro: String,
       numero: Number,
     },
