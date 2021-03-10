@@ -11,7 +11,14 @@ import dotenv from 'dotenv';
     port: process.env.PORT || 1234,
     host: process.env.PORT ? '0.0.0.0' : 'localhost',
     routes: {
-      cors: true,
+      cors: {
+        origin: ['*'],
+        additionalHeaders: [
+          'cache-control',
+          'x-persistence-type',
+          'authorization',
+        ],
+      },
     },
   });
 
