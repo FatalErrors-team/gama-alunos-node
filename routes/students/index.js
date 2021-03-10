@@ -14,7 +14,7 @@ export default [
     handler: studentsController.getStudents,
     options: {
       tags: ['api', 'Alunos'],
-      auth: 'jwt',
+      // auth: 'jwt',
       description: 'Obter todos os alunos cadastrados',
       plugins: {
         'hapi-swagger': {
@@ -38,7 +38,7 @@ export default [
     handler: studentsController.getSingleStudent,
     options: {
       tags: ['api', 'Alunos'],
-      auth: 'jwt',
+      // auth: 'jwt',
       description: 'Obter um aluno específico',
       validate: {
         params: validId,
