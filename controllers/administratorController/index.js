@@ -12,7 +12,7 @@ export default {
     const {
       data: administrator,
       statusCode,
-    } = await administratorService.find();
+    } = await administratorService.findByUsername(req.auth.credentials.sub);
     const response = new Response(administrator, statusCode);
     return h.response(response).code(response.statusCode);
   },

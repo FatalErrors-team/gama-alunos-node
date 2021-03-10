@@ -7,14 +7,14 @@ class AdministratorService {
     this.url = url;
   }
 
-  async find() {
+  async findByUsername(username) {
     // if (process.env.PERSISTENCE_TYPE === 'REST') {
     //   const repository = new RestRespository(process.env.API_URL, this.url);
     //   const administrator = await repository.find();
     //   return { data: administrator.data.data, statusCode: 200 };
     // } else {
     const repository = this.models.Administrator;
-    const administrator = await repository.find();
+    const administrator = await repository.findOne({ usuario: username });
     return { data: administrator, statusCode: 200 };
     // }
   }
