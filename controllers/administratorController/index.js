@@ -41,7 +41,7 @@ export default {
           authorization,
           req.server.plugins['hapi-mongoose'].Administrator
         );
-        const response = new Response(token, 201);
+        const response = new Response(token);
         return h.response(response).code(response.statusCode);
       } catch (error) {
         return new Boom(error, { statusCode: 401 });
@@ -52,7 +52,7 @@ export default {
           user,
           req.server.plugins['hapi-mongoose'].Administrator
         );
-        const response = new Response(token, 201);
+        const response = new Response(token);
         return h.response(response).code(response.statusCode);
       } catch (error) {
         return new Boom(error, { statusCode: 401 });

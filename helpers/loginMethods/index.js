@@ -60,7 +60,10 @@ export const loginHeader = async (authorization, model) => {
  * @returns Retorna um token jwt ou uma mensagem de erro.
  * @async
  */
-export const loginBody = async (user, model) => {
+export const loginBody = async (
+  { usuario: username, senha: password },
+  model
+) => {
   return new Promise((resolve, reject) => {
     verifyUser({ username, password }, model)
       .then(() => {

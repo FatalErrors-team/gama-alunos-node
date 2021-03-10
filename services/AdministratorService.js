@@ -34,7 +34,7 @@ class AdministratorService {
       const repository = this.models.Administrator;
       const administrator = new repository(obj);
       const savedAdministrator = await administrator.save();
-      return { data: savedAdministrator, statusCode: 200 };
+      return { data: savedAdministrator, statusCode: 201 };
     } catch {
       return { data: null, statusCode: 500 };
     }
