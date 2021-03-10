@@ -8,8 +8,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "mocha test --exit"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.1",
