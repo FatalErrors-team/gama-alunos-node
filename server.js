@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 (async () => {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
-    host: 'localhost',
+    host: process.env.PORT ? '0.0.0.0' : 'localhost',
   });
 
   // .env
